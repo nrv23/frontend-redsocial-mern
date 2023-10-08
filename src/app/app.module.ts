@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavComponent } from './components/nav/nav.component';
 import { RegistroComponent } from './components/registro/registro.component';
-
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -20,7 +20,8 @@ import { RegistroComponent } from './components/registro/registro.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
     //routing
   ],
   providers: [],
