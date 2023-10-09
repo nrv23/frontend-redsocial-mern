@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { IUsuario } from '../../interfaces/IUsuario';
+import { getErrorMessage } from '../../../util/error';
 
 declare var passwordStrengthMeter: any;
 @Component({
@@ -83,7 +84,7 @@ export class RegistroComponent implements OnInit {
             console.log(response.data);
           },
           error: err => {
-            console.log(err);
+            this.msg_error = getErrorMessage(err);
           },
 
         })

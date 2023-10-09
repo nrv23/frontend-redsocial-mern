@@ -1,29 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { ILogin } from '../interfaces/ILogin';
 import { getApiUrl } from '../../util/api';
-import { IUsuario } from '../interfaces/IUsuario';
 import { IResponse } from '../interfaces/IResponse';
-
+import { map } from 'rxjs';
+import { save } from 'src/util/storage';
+import { ILoginResponse } from '../interfaces/ILoginResponse';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioService {
-
-  private backendUrl = getApiUrl();
+export class LoginService {
 
   constructor(private _http: HttpClient) { }
 
-  registrar(usuario: IUsuario) {
+  private backendUrl = getApiUrl();
 
-    delete usuario?.confirm_password;
+  login(user: ILogin) {
 
     let headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
 
-    return this._http.post<IResponse<IUsuario>>(this.backendUrl.concat('/signup'), usuario, {
+    return this._http.post<IResponse<ILoginResponse>>(this.backendUrl.concat('/login'), user, {
       headers
     });
   }
