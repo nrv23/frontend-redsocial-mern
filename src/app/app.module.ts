@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { SidebarUsuarioComponent } from './components/cuenta/sidebar-usuario/sidebar-usuario.component';
 import { ConfiguracionUsuarioComponent } from './components/cuenta/configuracion-usuario/configuracion-usuario.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ConfiguracionUsuarioComponent } from './components/cuenta/configuracion
     RegistroComponent,
     LoginComponent,
     SidebarUsuarioComponent,
-    ConfiguracionUsuarioComponent
+    ConfiguracionUsuarioComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

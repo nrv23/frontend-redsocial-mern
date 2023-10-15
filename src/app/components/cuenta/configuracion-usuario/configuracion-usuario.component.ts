@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { getErrorMessage } from 'src/util/error';
 import { generos } from '../../../../util/genero';
 import { IConfiguration } from '../../../interfaces/IConfigation';
 import { UsuarioService } from '../../../services/usuario.service';
@@ -14,6 +15,7 @@ export class ConfiguracionUsuarioComponent implements OnInit {
 
   public generosList = generos;
   public userConfig!: IConfiguration;
+  public show: boolean = false;
 
 
   ngOnInit(): void {
@@ -28,8 +30,6 @@ export class ConfiguracionUsuarioComponent implements OnInit {
 
           let fechaNacimientoStr: string = '';
 
-
-
           let {
             nombre,
             apellidos,
@@ -41,10 +41,10 @@ export class ConfiguracionUsuarioComponent implements OnInit {
             fechaNacimiento,
             telefono
           } = response.data!;
-          console.log(fechaNacimiento)
+
           if (fechaNacimiento) {
+
             const d = new Date(fechaNacimiento);
-            console.log(d)
             const mes = (Number(d.getMonth() + 1) < 10) ? '0' + Number(d.getMonth() + 1).toString() : Number(d.getMonth() + 1).toString();
             const dia = ((d.getDate() + 1) < 10) ? '0' + (d.getDate() + 1) : (d.getDate() + 1);
             const anio = d.getFullYear();
@@ -80,11 +80,30 @@ export class ConfiguracionUsuarioComponent implements OnInit {
       .subscribe({
         next: response => {
           console.log(response)
+          this.usuarioSerice.setAlert({
+            class: "alert alert-success d-flex align-items-center",
+            message: response.message
+          });
+          this.show = true;
+
+          setTimeout(() => {
+            this.show = false;
+          }, 3000);
         },
         error: err => {
           console.log(err)
+          this.show = true;
+          this.usuarioSerice.setAlert({
+            class: "alert alert-danger d-flex align-items-center",
+            message: getErrorMessage(err)
+          });
+          setTimeout(() => {
+            this.show = false;
+          }, 3000);
         }
       })
   }
+
+
 
 }

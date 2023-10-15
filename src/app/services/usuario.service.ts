@@ -6,6 +6,8 @@ import { IResponse } from '../interfaces/IResponse';
 import { IUserConfigurationResponse } from '../interfaces/IUserConfigurationResponse';
 import { getHeaders } from 'src/util/headers';
 import { IConfiguration } from '../interfaces/IConfigation';
+import { BehaviorSubject } from 'rxjs';
+import { IAlert } from '../interfaces/IAlert';
 
 
 @Injectable({
@@ -14,6 +16,8 @@ import { IConfiguration } from '../interfaces/IConfigation';
 export class UsuarioService {
 
   private backendUrl = getApiUrl();
+  private alertSource = new BehaviorSubject<IAlert | null>(null);
+  alertSource$ = this.alertSource.asObservable();
 
   constructor(private _http: HttpClient) { }
 
@@ -38,8 +42,12 @@ export class UsuarioService {
 
   actualizarUsuario(user: IConfiguration) {
     const headers = getHeaders(true);
-    return this._http.patch(this.backendUrl.concat('/account/update/'), user, {
+    return this._http.patch<IResponse<{}>>(this.backendUrl.concat('/account/update/'), user, {
       headers
     });
+  }
+
+  setAlert(alert: IAlert) {
+    this.alertSource.next(alert);
   }
 }
