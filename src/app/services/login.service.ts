@@ -3,9 +3,8 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ILogin } from '../interfaces/ILogin';
 import { getApiUrl } from '../../util/api';
 import { IResponse } from '../interfaces/IResponse';
-import { map } from 'rxjs';
-import { save } from 'src/util/storage';
 import { ILoginResponse } from '../interfaces/ILoginResponse';
+import { getHeaders } from '../../util/headers';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +17,8 @@ export class LoginService {
 
   login(user: ILogin) {
 
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-
-    return this._http.post<IResponse<ILoginResponse>>(this.backendUrl.concat('/login'), user, {
+    const headers = getHeaders(false);
+    return this._http.post<IResponse<ILoginResponse>>(this.backendUrl.concat('/account/login'), user, {
       headers
     });
   }
