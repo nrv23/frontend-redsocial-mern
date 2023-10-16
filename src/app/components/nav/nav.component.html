@@ -641,8 +641,10 @@
             <li class="dropdown-divider"></li>
             <li>
               <a
+                (click)="logout()"
                 class="dropdown-item bg-danger-soft-hover"
-                href="sign-in-advance.html"
+                [routerLink]="['/login']"
+                routerLinkActive="router-link-active"
                 ><i class="bi bi-power fa-fw me-2"></i>Sign Out</a
               >
             </li>

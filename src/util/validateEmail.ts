@@ -6,3 +6,8 @@ export function validateEmail(email: string) {
     return validEmail.test(email);
 
 }
+
+export function validateVerificationCode(code: string) {
+    var regxp = /^([a-zA-Z0-9_-]){6,6}$/;
+    return regxp.test(code);
+}

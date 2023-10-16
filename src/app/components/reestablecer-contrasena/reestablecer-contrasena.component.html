@@ -1,0 +1,60 @@
+<div class="mb-3">
+  <!-- Input group -->
+  <app-alert *ngIf="show"></app-alert>
+  <form class="mt-3" (ngSubmit)="reestablecerContrasena($event)">
+    <div class="col-12">
+      <!-- Input group -->
+      <div class="input-group">
+        <input
+          [(ngModel)]="data.newpassword"
+          class="form-control fakepassword"
+          name="newpassword"
+          type="password"
+          id="psw-input"
+          placeholder="Nueva contraseña"
+        />
+        <span class="input-group-text p-0">
+          <i
+            class="
+              fakepasswordicon
+              fa-solid fa-eye-slash
+              cursor-pointer
+              p-2
+              w-40px
+            "
+          ></i>
+        </span>
+      </div>
+      <!-- Pswmeter -->
+      <div id="pswmeter" class="mt-2"></div>
+      <div id="pswmeter-message" class="rounded mt-1"></div>
+    </div>
+    <!-- Confirm password -->
+    <div class="col-12">
+      <input
+        [(ngModel)]="data.confirm_password"
+        name="confirm_password"
+        type="password"
+        class="form-control"
+        placeholder="Confirmar contraseña"
+      />
+    </div>
+
+    <div
+      class="mb-3 input-group-lg mb-3 text-center"
+      *ngIf="msg_error"
+      [ngClass]="{ 'mb-5': !msg_error }"
+    >
+      <span class="text-danger">
+        {{ msg_error }}
+      </span>
+    </div>
+
+    <div class="d-grid mb-3 mt-3">
+      <button type="submit" class="btn btn-lg btn-primary">
+        Reestablecer Contraseña
+      </button>
+    </div>
+  </form>
+  <!-- Pswmeter -->
+</div>

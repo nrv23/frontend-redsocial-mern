@@ -8,6 +8,7 @@ import { getHeaders } from 'src/util/headers';
 import { IConfiguration } from '../interfaces/IConfigation';
 import { BehaviorSubject } from 'rxjs';
 import { IAlert } from '../interfaces/IAlert';
+import { IChangePassword } from '../interfaces/iChangePassword';
 
 
 @Injectable({
@@ -17,7 +18,12 @@ export class UsuarioService {
 
   private backendUrl = getApiUrl();
   private alertSource = new BehaviorSubject<IAlert | null>(null);
+  private verificationAccountStep = new BehaviorSubject<number>(1);
+  private currentEmail = new BehaviorSubject<string>("");
   alertSource$ = this.alertSource.asObservable();
+  verificationAccountStep$ = this.verificationAccountStep.asObservable();
+  currentEmail$ = this.currentEmail.asObservable();
+
 
   constructor(private _http: HttpClient) { }
 
@@ -47,7 +53,51 @@ export class UsuarioService {
     });
   }
 
+
+  actualizarContrasena(data: IChangePassword) {
+
+    const headers = getHeaders(true);
+    const { password, newpassword } = data;
+
+    return this._http.patch<IResponse<{}>>(this.backendUrl.concat('/account/update-password'), {
+      password, newpassword
+    }, {
+      headers
+    })
+  }
+
+  validarCuenta(email: string) {
+
+    const headers = getHeaders(false);
+    return this._http.get<IResponse<boolean>>(this.backendUrl.concat('/account/validate-account/' + email), {
+      headers
+    });
+  }
+
+  validarCodigo(code: string, email: string) {
+
+    const headers = getHeaders(false);
+    return this._http.post<IResponse<{}>>(this.backendUrl.concat('/account/validate-code-verification'), { code, email }, {
+      headers
+    });
+  }
+
+  reestablecerContrasena(email: string, password: string) {
+    const headers = getHeaders(false);
+    return this._http.patch<IResponse<{}>>(this.backendUrl.concat('/account/reset-password'), { email, password }, {
+      headers
+    });
+  }
+
   setAlert(alert: IAlert) {
     this.alertSource.next(alert);
+  }
+
+  setVerificationStep(step: number) {
+    this.verificationAccountStep.next(step);
+  }
+
+  setCurrentEmail(email: string) {
+    this.currentEmail.next(email);
   }
 }

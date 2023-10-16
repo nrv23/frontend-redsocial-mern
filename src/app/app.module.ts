@@ -12,6 +12,10 @@ import { LoginComponent } from './components/login/login.component';
 import { SidebarUsuarioComponent } from './components/cuenta/sidebar-usuario/sidebar-usuario.component';
 import { ConfiguracionUsuarioComponent } from './components/cuenta/configuracion-usuario/configuracion-usuario.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { CambiarContrasenaComponent } from './components/cambiar-contrasena/cambiar-contrasena.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ValidarCodigoComponent } from './components/validar-codigo/validar-codigo.component';
+import { ReestablecerContrasenaComponent } from './components/reestablecer-contrasena/reestablecer-contrasena.component';
 
 
 @NgModule({
@@ -23,7 +27,11 @@ import { AlertComponent } from './components/alert/alert.component';
     LoginComponent,
     SidebarUsuarioComponent,
     ConfiguracionUsuarioComponent,
-    AlertComponent
+    AlertComponent,
+    CambiarContrasenaComponent,
+    ResetPasswordComponent,
+    ValidarCodigoComponent,
+    ReestablecerContrasenaComponent
   ],
   imports: [
     BrowserModule,

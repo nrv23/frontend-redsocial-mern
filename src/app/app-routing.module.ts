@@ -4,12 +4,16 @@ import { HomeComponent } from './components/home/home.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { LoginComponent } from './components/login/login.component';
 import { ConfiguracionUsuarioComponent } from './components/cuenta/configuracion-usuario/configuracion-usuario.component';
+import { CambiarContrasenaComponent } from './components/cambiar-contrasena/cambiar-contrasena.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: 'signup', component: RegistroComponent },
   { path: 'login', component: LoginComponent },
   { path: 'cuenta/configuracion', component: ConfiguracionUsuarioComponent },
+  { path: 'cuenta/contrasena', component: CambiarContrasenaComponent },
+  { path: 'reset-account', component: ResetPasswordComponent },
   { path: '**', redirectTo: "home", pathMatch: "full" }
 ];
 

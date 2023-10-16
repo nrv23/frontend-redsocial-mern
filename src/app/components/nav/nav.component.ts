@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { remove } from '../../../util/storage';
 
 @Component({
   selector: 'app-nav',
@@ -10,6 +11,10 @@ export class NavComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  logout() {
+    remove("token");
   }
 
 }
