@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavComponent } from './components/nav/nav.component';
 import { RegistroComponent } from './components/registro/registro.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { SidebarUsuarioComponent } from './components/cuenta/sidebar-usuario/sidebar-usuario.component';
 import { ConfiguracionUsuarioComponent } from './components/cuenta/configuracion-usuario/configuracion-usuario.component';
@@ -16,6 +16,14 @@ import { CambiarContrasenaComponent } from './components/cambiar-contrasena/camb
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ValidarCodigoComponent } from './components/validar-codigo/validar-codigo.component';
 import { ReestablecerContrasenaComponent } from './components/reestablecer-contrasena/reestablecer-contrasena.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { get } from 'src/util/storage';
+import { TokenInterceptor } from './interceptor/token.interceptor';
+
+export function getToken() {
+  console.log(get('token'))
+  return get('token');
+}
 
 
 @NgModule({
@@ -37,10 +45,15 @@ import { ReestablecerContrasenaComponent } from './components/reestablecer-contr
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: getToken
+      }
+    })
     //routing
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
