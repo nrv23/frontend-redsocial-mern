@@ -13,3 +13,5 @@ export const generos: IGenero[] = [
         descripcion: "Sin especificar"
     }
 ]
+
+export const tiposImagen = ["image/png", "image/jpeg", "image/gif", "image/webp", "image/jpg"];
