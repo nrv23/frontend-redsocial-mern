@@ -9,6 +9,7 @@ import { IConfiguration } from '../interfaces/IConfigation';
 import { BehaviorSubject } from 'rxjs';
 import { IAlert } from '../interfaces/IAlert';
 import { IChangePassword } from '../interfaces/iChangePassword';
+import { Usuario } from '../models/Usuario';
 
 
 @Injectable({
@@ -88,6 +89,23 @@ export class UsuarioService {
       headers
     });
   }
+
+  cargarUsuarios() {
+
+    const headers = getHeaders(true);
+    return this._http.get<IResponse<Usuario[]>>(this.backendUrl.concat('/account/users'), {
+      headers
+    })
+  }
+
+  enviarInvitacionAmistad(friendId: string) {
+    const headers = getHeaders(true);
+    return this._http.post<IResponse<{}>>(this.backendUrl.concat('/account/send-friend-invitation'), { friendId }, {
+      headers
+    })
+  }
+
+  // ---------------------------------------------------------------
 
   setAlert(alert: IAlert) {
     this.alertSource.next(alert);

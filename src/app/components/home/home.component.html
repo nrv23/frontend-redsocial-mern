@@ -2946,7 +2946,7 @@
               <!-- Card body START -->
               <div class="card-body">
                 <!-- Connection item START -->
-                <div class="hstack gap-2 mb-3">
+                <div class="hstack gap-2 mb-3" *ngFor="let user of userLists">
                   <!-- Avatar -->
                   <div class="avatar">
                     <a href="#!"
@@ -2958,122 +2958,22 @@
                   </div>
                   <!-- Title -->
                   <div class="overflow-hidden">
-                    <a class="h6 mb-0" href="#!">Judy Nguyen </a>
-                    <p class="mb-0 small text-truncate">News anchor</p>
-                  </div>
-                  <!-- Button -->
-                  <a
-                    class="btn btn-primary-soft rounded-circle icon-md ms-auto"
-                    href="#"
-                    ><i class="fa-solid fa-plus"> </i
-                  ></a>
-                </div>
-                <!-- Connection item END -->
-                <!-- Connection item START -->
-                <div class="hstack gap-2 mb-3">
-                  <!-- Avatar -->
-                  <div class="avatar avatar-story">
-                    <a href="#!">
-                      <img
-                        class="avatar-img rounded-circle"
-                        src="assets/images/avatar/05.jpg"
-                        alt=""
-                      />
+                    <a class="h6 mb-0" href="#!"
+                      >{{ user.nombre }} {{ user.apellidos }}
                     </a>
-                  </div>
-                  <!-- Title -->
-                  <div class="overflow-hidden">
-                    <a class="h6 mb-0" href="#!">Amanda Reed </a>
-                    <p class="mb-0 small text-truncate">Web Developer</p>
-                  </div>
-                  <!-- Button -->
-                  <a
-                    class="btn btn-primary-soft rounded-circle icon-md ms-auto"
-                    href="#"
-                    ><i class="fa-solid fa-plus"> </i
-                  ></a>
-                </div>
-                <!-- Connection item END -->
-
-                <!-- Connection item START -->
-                <div class="hstack gap-2 mb-3">
-                  <!-- Avatar -->
-                  <div class="avatar">
-                    <a href="#">
-                      <img
-                        class="avatar-img rounded-circle"
-                        src="assets/images/avatar/11.jpg"
-                        alt=""
-                      />
-                    </a>
-                  </div>
-                  <!-- Title -->
-                  <div class="overflow-hidden">
-                    <a class="h6 mb-0" href="#!">Billy Vasquez </a>
-                    <p class="mb-0 small text-truncate">News anchor</p>
-                  </div>
-                  <!-- Button -->
-                  <a
-                    class="btn btn-primary rounded-circle icon-md ms-auto"
-                    href="#"
-                    ><i class="bi bi-person-check-fill"> </i
-                  ></a>
-                </div>
-                <!-- Connection item END -->
-
-                <!-- Connection item START -->
-                <div class="hstack gap-2 mb-3">
-                  <!-- Avatar -->
-                  <div class="avatar">
-                    <a href="#">
-                      <img
-                        class="avatar-img rounded-circle"
-                        src="assets/images/avatar/01.jpg"
-                        alt=""
-                      />
-                    </a>
-                  </div>
-                  <!-- Title -->
-                  <div class="overflow-hidden">
-                    <a class="h6 mb-0" href="#!">Lori Ferguson </a>
-                    <p class="mb-0 small text-truncate">
-                      Web Developer at Webestica
+                    <p class="mb-0 small text-truncate" *ngIf="user.profesion">
+                      {{ user.profesion || "No hay profesion" }}
                     </p>
                   </div>
                   <!-- Button -->
-                  <a
+                  <button
+                    (click)="enviarInvitacionAmistad(user)"
                     class="btn btn-primary-soft rounded-circle icon-md ms-auto"
                     href="#"
-                    ><i class="fa-solid fa-plus"> </i
-                  ></a>
+                  >
+                    <i class="fa-solid fa-plus"> </i>
+                  </button>
                 </div>
-                <!-- Connection item END -->
-
-                <!-- Connection item START -->
-                <div class="hstack gap-2 mb-3">
-                  <!-- Avatar -->
-                  <div class="avatar">
-                    <a href="#">
-                      <img
-                        class="avatar-img rounded-circle"
-                        src="assets/images/avatar/placeholder.jpg"
-                        alt=""
-                      />
-                    </a>
-                  </div>
-                  <!-- Title -->
-                  <div class="overflow-hidden">
-                    <a class="h6 mb-0" href="#!">Carolyn Ortiz </a>
-                    <p class="mb-0 small text-truncate">News anchor</p>
-                  </div>
-                  <!-- Button -->
-                  <a
-                    class="btn btn-primary-soft rounded-circle icon-md ms-auto"
-                    href="#"
-                    ><i class="fa-solid fa-plus"> </i
-                  ></a>
-                </div>
-                <!-- Connection item END -->
 
                 <!-- View more button -->
                 <div class="d-grid mt-3">
@@ -3219,6 +3119,7 @@
 
       <div>
         <div class="dropzone dropzone-default card shadow-none text-center">
+          <app-alert class="mb-5" *ngIf="show"></app-alert>
           <div class="dz-message">
             <i class="bi bi-images display-3"></i>
             <label
@@ -3259,7 +3160,13 @@
         >
           Cancel
         </button>
-        <button type="button" class="btn btn-success-soft">Post</button>
+        <button
+          (click)="guardarHistoria()"
+          type="button"
+          class="btn btn-success-soft"
+        >
+          Post
+        </button>
       </div>
       <!-- Modal feed footer -->
     </div>
