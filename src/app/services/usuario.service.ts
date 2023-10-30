@@ -105,6 +105,21 @@ export class UsuarioService {
     })
   }
 
+  obtenerInvitacionesAmistad() {
+    const headers = getHeaders(true);
+    return this._http.get<IResponse<Usuario[]>>(this.backendUrl.concat('/account/friend-invitation'), {
+      headers
+    });
+  }
+
+  // 
+
+  aceptarInvitacionAmistad(friendId: string) {
+    const headers = getHeaders(true);
+    return this._http.post<IResponse<{}>>(this.backendUrl.concat('/account/accept-friend-invitation'), { friendId }, {
+      headers
+    });
+  }
   // ---------------------------------------------------------------
 
   setAlert(alert: IAlert) {

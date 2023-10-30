@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
   public show: boolean = false;
   public userLists: Usuario[] = [];
 
+
   ngOnInit(): void {
 
     this.loginService.currentUser$.subscribe({
@@ -115,10 +116,13 @@ export class HomeComponent implements OnInit {
   }
 
   enviarInvitacionAmistad(user: Usuario) {
+    console.log(user)
     this.usuarioSerice.enviarInvitacionAmistad(user._id!)
       .subscribe({
         next: response => {
           console.log(response);
+
+          this.userLists = this.userLists.filter(el => el._id !== user._id);
         },
         error: e => {
 
